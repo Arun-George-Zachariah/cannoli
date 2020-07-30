@@ -392,13 +392,17 @@
       </dependency>
       <dependency>
         <groupId>org.bdgenomics.adam</groupId>
+        <scope>system</scope>
         <artifactId>adam-core-spark3_${scala.version.prefix}</artifactId>
         <version>${adam.version}</version>
+        <systemPath>${basedir}/lib/adam-cli-spark3_2.12-0.33.0-SNAPSHOT.jar</systemPath>
       </dependency>
       <dependency>
         <groupId>org.bdgenomics.adam</groupId>
+        <scope>system</scope>
         <artifactId>adam-cli-spark3_${scala.version.prefix}</artifactId>
         <version>${adam.version}</version>
+        <systemPath>${basedir}/lib/adam-core-spark3_2.12-0.33.0-SNAPSHOT.jar</systemPath>
       </dependency>
       <dependency>
         <groupId>org.bdgenomics.cannoli</groupId>
