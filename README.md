@@ -17,7 +17,7 @@ Install
 To build
 
 ```bash
-$ mvn install
+$ bash build.sh
 ```
 
 ## Installing Cannoli
