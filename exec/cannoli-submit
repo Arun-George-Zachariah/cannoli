@@ -43,7 +43,7 @@ else
   CANNOLI_ARGS=("${PRE_DD[@]}")
 fi
 
-ASSEMBLY_DIR="${EVA_HOME}/cannoli_bin/jars"
+ASSEMBLY_DIR="${CANNOLI_HOME}/exec/jars"
 
 num_jars="$(ls -1 "$ASSEMBLY_DIR" | grep "^cannoli[0-9A-Za-z\.\_\-]*\.jar$" | grep -v javadoc | grep -v sources | wc -l)"
 if [ "$num_jars" -eq "0" ]; then
