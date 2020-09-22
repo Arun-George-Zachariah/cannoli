@@ -1,8 +1,8 @@
 # Cannoli
 Distributed execution of bioinformatics tools on Apache Spark. Apache 2 licensed.
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.bdgenomics.cannoli/cannoli-parent-spark2_2.11.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Corg.bdgenomics.cannoli)
-[![API Documentation](http://javadoc.io/badge/org.bdgenomics.cannoli/cannoli-cli-spark2_2.11.svg?color=brightgreen&label=scaladoc)](http://javadoc.io/doc/org.bdgenomics.cannoli/cannoli-core-spark2_2.11)
+[![Maven Central](https://img.shields.io/maven-central/v/org.bdgenomics.cannoli/cannoli-parent-spark3_2.12.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Corg.bdgenomics.cannoli)
+[![API Documentation](http://javadoc.io/badge/org.bdgenomics.cannoli/cannoli-cli-spark3_2.12.svg?color=brightgreen&label=scaladoc)](http://javadoc.io/doc/org.bdgenomics.cannoli/cannoli-core-spark3_2.12)
 
 ![Cannoli project logo](https://github.com/heuermh/cannoli/raw/master/images/cannoli-shells.jpg)
 
@@ -53,7 +53,7 @@ alignments, features, fragments, genotypes, reads, sequences, slices, variant co
 or variants, such as `sc.loadPairedFastqAsFragments` below.
 
 Wildcard import from `Cannoli` to add implicit methods for calling external commands to the
-genomic datasets loaded by ADAM, such as `reads.alignWithBwa` below.
+genomic datasets loaded by ADAM, such as `reads.alignWithBwaMem` below.
 
 ```
 $ ./bin/cannoli-shell \
@@ -68,8 +68,8 @@ import org.bdgenomics.cannoli.Cannoli._
 scala> import org.bdgenomics.cannoli.BwaArgs
 import org.bdgenomics.cannoli.BwaArgs
 
-scala> val args = new BwaArgs()
-args: org.bdgenomics.cannoli.BwaArgs = org.bdgenomics.cannoli.BwaArgs@54234569
+scala> val args = new BwaMemArgs()
+args: org.bdgenomics.cannoli.BwaMemArgs = org.bdgenomics.cannoli.BwaMemArgs@54234569
 
 scala> args.indexPath = "hg38.fa"
 args.indexPath: String = hg38.fa
@@ -81,7 +81,7 @@ scala> val reads = sc.loadPairedFastqAsFragments("sample1.fq", "sample2.fq")
 reads: org.bdgenomics.adam.rdd.fragment.FragmentRDD = RDDBoundFragmentRDD with 0 reference
 sequences, 0 read groups, and 0 processing steps
 
-scala> val alignments = reads.alignWithBwa(args)
+scala> val alignments = reads.alignWithBwaMem(args)
 alignments: org.bdgenomics.adam.rdd.read.AlignmentRecordRDD = RDDBoundAlignmentRecordRDD with
 0 reference sequences, 0 read groups, and 0 processing steps
 
@@ -118,7 +118,7 @@ CANNOLI
               bowtie : Align paired-end reads in a fragment dataset with Bowtie.
              bowtie2 : Align paired-end reads in a fragment dataset with Bowtie 2.
     singleEndBowtie2 : Align unaligned single-end reads in an alignment dataset with Bowtie 2.
-                 bwa : Align paired-end reads in a fragment dataset with BWA.
+              bwaMem : Align paired-end reads in a fragment dataset with bwa mem.
              bwaMem2 : Align paired-end reads in a fragment dataset with Bwa-mem2.
            freebayes : Call variants from an alignment dataset with Freebayes.
                  gem : Align paired-end reads in a fragment dataset with GEM-Mapper.
@@ -144,7 +144,7 @@ External commands wrapped by Cannoli should be installed to each executor node i
 $ ./bin/cannoli-submit \
     <spark-args>
     -- \
-    bwa \
+    bwaMem \
     sample.unaligned.fragments.adam \
     sample.bwa.hg38.alignments.adam \
     sample \
@@ -160,7 +160,7 @@ or can be run using Docker
 $ ./bin/cannoli-submit \
     <spark-args>
     -- \
-    bwa \
+    bwaMem \
     sample.unaligned.fragments.adam \
     sample.bwa.hg38.alignments.adam \
     sample \
@@ -178,7 +178,7 @@ or can be run using Singularity
 $ ./bin/cannoli-submit \
     <spark-args>
     -- \
-    bwa \
+    bwaMem \
     sample.unaligned.fragments.adam \
     sample.bwa.hg38.alignments.adam \
     sample \
